@@ -26,18 +26,12 @@ articleView.handleAuthorFilter = function() {
         that was selected. Use an "attribute selector" to find
         those articles that match the value, and fade them in
         for the reader. */
-        $('section article').hide();
-        $('section article').each(function(){
-        console.log("Comparing: "+$(this).attr("data-author")+" to: "+$('#author-filter').val());
-          if ($('#author-filter').val() == $(this).attr("data-author")){
-
-              console.log("Match");
-          }else{
-            console.log("no match");
-          };
-
-        });
-
+      $('section article').hide();
+      $('section article').each(function(){
+        if ($('#author-filter').val() === $(this).attr('data-author')){
+          $(this).show();
+        }
+      });
     } else {
       /* TODO: Otherwise, we should:
       1. Show all the articles.
