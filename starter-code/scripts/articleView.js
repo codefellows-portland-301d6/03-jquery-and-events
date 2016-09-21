@@ -92,7 +92,7 @@ articleView.handleMainNav = function () {
 articleView.setTeasers = function() {
   /* Hide any elements after the first 2 (<p> Tags in case)
   in any article body: */
-  $('.article-body *:nth-of-type(n+2)').hide();
+  $('.article-body *:nth-of-type(n+3)').hide();
 
   /* TODO: Add a delegated event handler to reveal the remaining
   paragraph.  When a .read-on link is clicked, we can:
@@ -100,6 +100,13 @@ articleView.setTeasers = function() {
   2. Reveal everything in that particular article now.
   3. Hide that read-on link! */
   // STRETCH GOAL!:  change the 'Read On' link to display 'Show Less'
+
+  $('.read-on').on('click', function(event) {
+    event.preventDefault();
+    $(this).prev().find('p').show();
+
+    $(this).hide();
+  });
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
@@ -110,3 +117,5 @@ articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
 
 articleView.handleMainNav();
+
+articleView.setTeasers();
