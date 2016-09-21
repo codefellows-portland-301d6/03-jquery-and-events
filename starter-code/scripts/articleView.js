@@ -35,7 +35,6 @@ articleView.handleAuthorFilter = function() {
       1. Show all the articles.
       2. Except the one article we are using as a template. */
       $('article:not(".template")').show();
-
     }
     $('#category-filter').val('');
   });
@@ -45,6 +44,17 @@ articleView.handleCategoryFilter = function() {
   /* TODO: Just like we do for #author-filter above, we should also handle
   change events on the #category-filter element. Be sure to reset the
   #author-filter while you're at it! */
+  $('#category-filter').on('change', function() {
+    if ($(this).val()) {
+      var categoryValue = $(this).val();
+      $('article').hide();
+      var thisArticle = $('article[data-category="' + categoryValue +'"]');
+      thisArticle.fadeIn('slow');
+    } else {
+      $('article:not(".template")').show();
+    }
+    $('#author-filter').val('');
+  });
 };
 
 articleView.handleMainNav = function () {
@@ -76,3 +86,4 @@ articleView.setTeasers = function() {
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
 articleView.handleAuthorFilter();
+articleView.handleCategoryFilter();
