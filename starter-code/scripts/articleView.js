@@ -90,8 +90,8 @@ articleView.setTeasers = function() {
   $('.article-body *:nth-of-type(n+2)').hide();
   $('.read-on').on('click', function() {
     event.preventDefault();
-    $(this).parent().find('.article-body *:nth-of-type(n+2)').show();
-    $(this).hide();
+    $(this).parent().find('.article-body *:nth-of-type(n+2)').toggle();
+    $(this).text('Show Less');
   });
 
   /* TODO: Add a delegated event handler to reveal the remaining
