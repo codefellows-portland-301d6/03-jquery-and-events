@@ -79,7 +79,12 @@ articleView.handleMainNav = function () {
   2. Fade in the single .tab-content section that is associated withthe clicked
   .tab element's data-content attribute. */
 
-  $('.main-nav').on(/* CODE GOES HERE */);
+  $('.main-nav').on('click', '.tab', function(evt) {
+    $('.tab-content').hide();
+    evt.preventDefault();
+    var $selectedItem = $(this).data('content');
+    $('#' + $selectedItem).fadeIn('fast');
+  });
 
   $('.main-nav .tab:first').click();
 };
@@ -103,3 +108,5 @@ articleView.populateFilters();
 articleView.handleAuthorFilter();
 
 articleView.handleCategoryFilter();
+
+articleView.handleMainNav();
