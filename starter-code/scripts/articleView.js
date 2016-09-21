@@ -62,10 +62,15 @@ articleView.handleMainNav = function () {
   power the tabs feature.
   Clicking any .tab element should:
   1. Hide all the .tab-content sections.
-  2. Fade in the single .tab-content section that is associated withthe clicked
+  2. Fade in the single .tab-content section that is associated with the clicked
   .tab element's data-content attribute. */
 
-  $('.main-nav').on(/* CODE GOES HERE */);
+  $('.main-nav .tab').on('click', function() {
+    var tabValue = $(this).attr('data-content');
+    $('.tab-content').hide();
+    $('#' + tabValue).fadeIn('slow');
+
+  });
 
   $('.main-nav .tab:first').click();
 };
@@ -87,3 +92,4 @@ articleView.setTeasers = function() {
 articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
+articleView.handleMainNav();
