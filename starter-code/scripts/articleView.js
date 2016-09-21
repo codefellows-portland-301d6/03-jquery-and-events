@@ -25,9 +25,6 @@ articleView.handleAuthorFilter = function() {
       $('article').hide();
       $(url).fadeIn();
 
-      //$('article[data-author=$currentAuthor]').find();
-
-
       /* TODO: If the select box changes to an option that has a value,
       we should:
       1. Hide all the articles,
@@ -49,7 +46,20 @@ articleView.handleCategoryFilter = function() {
   /* TODO: Just like we do for #author-filter above, we should also handle
   change events on the #category-filter element. Be sure to reset the
   #author-filter while you're at it! */
+  $('#category-filter').on('change', function() {
+    if ($(this).val()) {
+      var $currentCategory = $(this).val();
+      var url = 'article[data-category="' + $currentCategory + '"]';
+      console.log(url);
+      $('article').hide();
+      $(url).fadeIn();
+    } else {
+      $('article').not('.template').show();
+    }
+    $('#author-filter').val('');
+  });
 };
+
 
 articleView.handleMainNav = function () {
   /* TODO: Complete the delegated event handler below to help
@@ -80,3 +90,4 @@ articleView.setTeasers = function() {
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
 articleView.handleAuthorFilter();
+articleView.handleCategoryFilter();
