@@ -26,37 +26,50 @@ articleView.handleAuthorFilter = function() {
         that was selected. Use an "attribute selector" to find
         those articles that match the value, and fade them in
         for the reader. */
-      $('#articles').hide();
+      $('article').hide();
       console.log($(this).val());
-      var match = $(this).val();
-      console.log(match);
+      var authorMatch = $(this).val();
+      console.log(authorMatch);
       $('article').each(function(){
-        if (this.attr('data-author') === match)
-        {
-          this.fadeIn('slow');
+        if (authorMatch === $(this).find('address a').text()) {
+          $(this).fadeIn();
         }
       });
-
-
-
-
-
-
     } else {
       /* TODO: Otherwise, we should:
       1. Show all the articles.
       2. Except the one article we are using as a template. */
+      $('article:not(.template)').fadeIn();
     }
-    $('#category-filter').val('');
+    // $('#category-filter').val('');
   });
 };
 
-articleView.handleAuthorFilter();
 
 articleView.handleCategoryFilter = function() {
   /* TODO: Just like we do for #author-filter above, we should also handle
   change events on the #category-filter element. Be sure to reset the
   #author-filter while you're at it! */
+  $('#category-filter').on('change', function() {
+    if ($(this).val()) {
+      console.log($(this).val());
+      $('article').hide();
+      var categoryMatch = $(this).val();
+      console.log(categoryMatch);
+      $('article').each(function(){
+        if (categoryMatch === $(this).attr('data-category')) {
+          $(this).fadeIn();
+        }
+      });
+    } else {
+      /* TODO: Otherwise, we should:
+      1. Show all the articles.
+      2. Except the one article we are using as a template. */
+      console.log('wtf');
+      $('article:not(.template)').fadeIn();
+    }
+    // $('#category-filter').val('');
+  });
 };
 
 articleView.handleMainNav = function () {
@@ -87,3 +100,5 @@ articleView.setTeasers = function() {
 
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
+articleView.handleAuthorFilter();
+articleView.handleCategoryFilter();
