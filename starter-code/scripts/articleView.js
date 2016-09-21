@@ -26,6 +26,15 @@ articleView.handleAuthorFilter = function() {
         that was selected. Use an "attribute selector" to find
         those articles that match the value, and fade them in
         for the reader. */
+      var authorValue = $(this).val();
+      $('article').hide();
+      var thisArticle = $('article[data-name="' + authorValue +'"]');
+      thisArticle.fadeIn('slow');
+
+
+
+
+
     } else {
       /* TODO: Otherwise, we should:
       1. Show all the articles.
@@ -69,3 +78,4 @@ articleView.setTeasers = function() {
 
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
+articleView.handleAuthorFilter();
