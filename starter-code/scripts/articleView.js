@@ -28,7 +28,14 @@ articleView.handleAuthorFilter = function() {
         for the reader. */
         $('section article').hide();
         $('section article').each(function(){
-          console.log($(this).attr("data-author"));
+        console.log("Comparing: "+$(this).attr("data-author")+" to: "+$('#author-filter').val());
+          if ($('#author-filter').val() == $(this).attr("data-author")){
+
+              console.log("Match");
+          }else{
+            console.log("no match");
+          };
+
         });
 
     } else {
