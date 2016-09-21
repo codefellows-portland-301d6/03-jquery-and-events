@@ -19,6 +19,15 @@ articleView.populateFilters = function() {
 articleView.handleAuthorFilter = function() {
   $('#author-filter').on('change', function() {
     if ($(this).val()) {
+      var $currentAuthor = $(this).val();
+      var url = 'article[data-author="' + $currentAuthor + '"]';
+      console.log(url);
+      $('article').hide();
+      $(url).fadeIn();
+
+      //$('article[data-author=$currentAuthor]').find();
+
+
       /* TODO: If the select box changes to an option that has a value,
       we should:
       1. Hide all the articles,
@@ -69,3 +78,4 @@ articleView.setTeasers = function() {
 
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
+articleView.handleAuthorFilter();
