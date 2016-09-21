@@ -28,8 +28,20 @@ articleView.handleAuthorFilter = function() {
         for the reader. */
       $('#articles').hide();
       console.log($(this).val());
-      $results = $newArticle.attr(this.val());
-      console.log($results);
+      var match = $(this).val();
+      console.log(match);
+      $('article').each(function(){
+        if (this.attr('data-author') === match)
+        {
+          this.fadeIn('slow');
+        }
+      });
+
+
+
+
+
+
     } else {
       /* TODO: Otherwise, we should:
       1. Show all the articles.
