@@ -17,7 +17,6 @@ articleView.populateFilters = function() {
 };
 
 articleView.handleAuthorFilter = function() {
-  console.log("Should be going right now!");
   $('#author-filter').on('change', function() {
     if ($(this).val()) {
       /* TODO: If the select box changes to an option that has a value,
@@ -28,7 +27,9 @@ articleView.handleAuthorFilter = function() {
         those articles that match the value, and fade them in
         for the reader. */
         $('section article').hide();
-
+        $('section article').each(function(){
+          console.log($(this).attr("data-author"));
+        });
 
     } else {
       /* TODO: Otherwise, we should:
