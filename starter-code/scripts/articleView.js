@@ -84,6 +84,13 @@ articleView.setTeasers = function() {
   2. Reveal everything in that particular article now.
   3. Hide that read-on link! */
   // STRETCH GOAL!:  change the 'Read On' link to display 'Show Less'
+  $('article').on('click', '.read-on', function (e) {
+     // this = readon link
+    e.preventDefault();
+    $(this).parent().find('.article-body *').show();
+    $(this).text('Show Less');
+  })
+
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
@@ -91,3 +98,4 @@ articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
 articleView.handleMainNav();
+articleView.setTeasers();
