@@ -69,7 +69,18 @@ articleView.handleMainNav = function () {
   2. Fade in the single .tab-content section that is associated withthe clicked
   .tab element's data-content attribute. */
 
-  $('.main-nav').on(/* CODE GOES HERE */);
+  $('.main-nav').on('click', '.tab', function(){
+    console.log('this', this);
+    var $this = $(this);
+    var $selectedTab = $this.attr('data-content');
+    //var url = 'article[data-category="' + $currentCategory + '"]';
+
+    var item = '#' + $selectedTab;
+
+    console.log('item', item);
+    $('.tab-content').hide();
+    $(item).show();
+  });
 
   $('.main-nav .tab:first').click();
 };
@@ -84,6 +95,11 @@ articleView.setTeasers = function() {
   1. Prevent the default action of a link.
   2. Reveal everything in that particular article now.
   3. Hide that read-on link! */
+  $('article').on('click', '.read-on', function(e){
+    e.preventDefault();
+    $('.article-body *:nth-of-type(n+2)').show();
+  });
+
   // STRETCH GOAL!:  change the 'Read On' link to display 'Show Less'
 };
 
@@ -91,3 +107,5 @@ articleView.setTeasers = function() {
 articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
