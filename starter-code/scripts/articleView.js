@@ -78,7 +78,7 @@ articleView.handleMainNav = function () {
 articleView.setTeasers = function() {
   /* Hide any elements after the first 2 (<p> Tags in case)
   in any article body: */
-  $('.article-body *:nth-of-type(n+2)').hide();
+  $('.article-body *:nth-of-type(n+3)').hide();
 
   /* TODO: Add a delegated event handler to reveal the remaining
   paragraph.  When a .read-on link is clicked, we can:
@@ -93,3 +93,4 @@ articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
 articleView.handleMainNav();
+articleView.setTeasers();
