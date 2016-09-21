@@ -35,7 +35,7 @@ articleView.handleAuthorFilter = function() {
       /* TODO: Otherwise, we should:
       1. Show all the articles.
       2. Except the one article we are using as a template. */
-      $('#articles article').not('.template').show();
+      $('#articles article').not('.template').fadeIn();
     }
     $('#category-filter').val('');
   });
@@ -45,6 +45,17 @@ articleView.handleCategoryFilter = function() {
   /* TODO: Just like we do for #author-filter above, we should also handle
   change events on the #category-filter element. Be sure to reset the
   #author-filter while you're at it! */
+  $('#category-filter').on('change', function() {
+    var categoryName = $(this).val();
+    if(categoryName){
+      var $articles = $('#articles article');
+      $articles.hide();
+      $('article[data-category="' + categoryName + '"]').fadeIn();
+    } else {
+      $('#articles article').not('.template').fadeIn();
+    };
+    $('#author-filter').val('');
+  });
 };
 
 articleView.handleMainNav = function () {
@@ -55,7 +66,16 @@ articleView.handleMainNav = function () {
   2. Fade in the single .tab-content section that is associated withthe clicked
   .tab element's data-content attribute. */
 
-  $('.main-nav').on(/* CODE GOES HERE */);
+  $('.main-nav').on('click', 'li.tab', function(){
+    var tabClickContent = $(this).data('content');
+    if (tabClickContent === 'articles') {
+      $('#about').hide();
+      $('#articles').fadeIn();
+    } else if (tabClickContent === 'about') {
+      $('#articles').hide();
+      $('#about').fadeIn();
+    }
+  });
 
   $('.main-nav .tab:first').click();
 };
@@ -76,3 +96,6 @@ articleView.setTeasers = function() {
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
 articleView.handleAuthorFilter();
+articleView.handleCategoryFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
