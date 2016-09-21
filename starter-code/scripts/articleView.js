@@ -29,7 +29,7 @@ articleView.handleAuthorFilter = function() {
       $('section article').hide();
       $('section article').each(function(){
         if ($('#author-filter').val() === $(this).attr('data-author')){
-          $(this).show();
+          $(this).fadeIn();
         }
       });
     } else {
@@ -51,7 +51,7 @@ articleView.handleCategoryFilter = function() {
       $('section article').hide();
       $('section article').each(function(){
         if ($('#category-filter').val() === $(this).attr('data-category')){
-          $(this).show();
+          $(this).fadeIn();
         }
       });
     } else {
