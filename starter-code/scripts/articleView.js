@@ -26,6 +26,8 @@ articleView.handleAuthorFilter = function() {
         that was selected. Use an "attribute selector" to find
         those articles that match the value, and fade them in
         for the reader. */
+      $('article').hide();
+      $(newArticle).find('#author-filter').fadein();
     } else {
       /* TODO: Otherwise, we should:
       1. Show all the articles.
@@ -39,6 +41,16 @@ articleView.handleCategoryFilter = function() {
   /* TODO: Just like we do for #author-filter above, we should also handle
   change events on the #category-filter element. Be sure to reset the
   #author-filter while you're at it! */
+  $('#category-filter').on('change', function(){
+    if ($(this).val()){
+      $('article').hide();
+      $(newArticle).find('#author-filter').fadein();
+    }
+    else{
+
+    }
+    $('#author-filter').val('')
+  });
 };
 
 articleView.handleMainNav = function () {
@@ -69,3 +81,5 @@ articleView.setTeasers = function() {
 
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
+articleView.handleAuthorFilter();
+articleView.handleCategoryFilter();
