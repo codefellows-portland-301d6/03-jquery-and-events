@@ -26,10 +26,17 @@ articleView.handleAuthorFilter = function() {
         that was selected. Use an "attribute selector" to find
         those articles that match the value, and fade them in
         for the reader. */
+      $('section article').hide();
+      $('section article').each(function(){
+        if ($('#author-filter').val() === $(this).attr('data-author')){
+          $(this).fadeIn();
+        }
+      });
     } else {
       /* TODO: Otherwise, we should:
       1. Show all the articles.
       2. Except the one article we are using as a template. */
+      $('section article').not('.template').show();
     }
     $('#category-filter').val('');
   });
@@ -39,6 +46,22 @@ articleView.handleCategoryFilter = function() {
   /* TODO: Just like we do for #author-filter above, we should also handle
   change events on the #category-filter element. Be sure to reset the
   #author-filter while you're at it! */
+  $('#category-filter').on('change', function() {
+    if ($(this).val()) {
+      $('section article').hide();
+      $('section article').each(function(){
+        if ($('#category-filter').val() === $(this).attr('data-category')){
+          $(this).fadeIn();
+        }
+      });
+    } else {
+      /* TODO: Otherwise, we should:
+      1. Show all the articles.
+      2. Except the one article we are using as a template. */
+      $('section article').not('.template').show();
+    }
+    $('#author-filter').val('');
+  });
 };
 
 articleView.handleMainNav = function () {
@@ -49,15 +72,27 @@ articleView.handleMainNav = function () {
   2. Fade in the single .tab-content section that is associated withthe clicked
   .tab element's data-content attribute. */
 
-  $('.main-nav').on(/* CODE GOES HERE */);
+  $('.main-nav .tab').on('click', function() {
+    $('.tab-content').hide();
+    if ($(this).attr('data-content') === 'articles') {
+      $('#articles').fadeIn();
+    } else if ($(this).attr('data-content') === 'about') {
+      $('#about').fadeIn();
+    }
+  });
 
-  $('.main-nav .tab:first').click();
+  // $('.main-nav .tab:first').click();
 };
 
 articleView.setTeasers = function() {
   /* Hide any elements after the first 2 (<p> Tags in case)
   in any article body: */
   $('.article-body *:nth-of-type(n+2)').hide();
+  $('.read-on').on('click', function() {
+    event.preventDefault();
+    $(this).parent().find('.article-body *:nth-of-type(n+2)').toggle();
+    $(this).text('Show Less');
+  });
 
   /* TODO: Add a delegated event handler to reveal the remaining
   paragraph.  When a .read-on link is clicked, we can:
@@ -65,7 +100,12 @@ articleView.setTeasers = function() {
   2. Reveal everything in that particular article now.
   3. Hide that read-on link! */
   // STRETCH GOAL!:  change the 'Read On' link to display 'Show Less'
+
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
+articleView.handleAuthorFilter();
+articleView.handleCategoryFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
