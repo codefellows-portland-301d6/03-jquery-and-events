@@ -18,7 +18,8 @@ articleView.populateFilters = function() {
 
 articleView.handleAuthorFilter = function() {
   $('#author-filter').on('change', function() {
-    if ($(this).val()) {
+    var $selectedValue = $(this).val();
+    if ($selectedValue) {
       /* TODO: If the select box changes to an option that has a value,
       we should:
       1. Hide all the articles,
@@ -26,10 +27,21 @@ articleView.handleAuthorFilter = function() {
         that was selected. Use an "attribute selector" to find
         those articles that match the value, and fade them in
         for the reader. */
+      var $articles = $('#articles article');
+      $articles.each(function() {
+        $(this).hide();
+        if ($selectedValue === $(this).attr('data-author')) {
+          $(this).fadeIn('slow');
+        }
+      });
     } else {
       /* TODO: Otherwise, we should:
       1. Show all the articles.
       2. Except the one article we are using as a template. */
+      var $articles = $('#articles article');
+      $articles.not('.template').each(function() {
+        $(this).show();
+      });
     }
     $('#category-filter').val('');
   });
@@ -39,6 +51,24 @@ articleView.handleCategoryFilter = function() {
   /* TODO: Just like we do for #author-filter above, we should also handle
   change events on the #category-filter element. Be sure to reset the
   #author-filter while you're at it! */
+  $('#category-filter').on('change', function() {
+    var $selectedValue = $(this).val();
+    if ($selectedValue) {
+      var $articles = $('#articles article');
+      $articles.each(function() {
+        $(this).hide();
+        if ($selectedValue === $(this).attr('data-category')) {
+          $(this).fadeIn('slow');
+        }
+      });
+    } else {
+      var $articles = $('#articles article');
+      $articles.not('.template').each(function() {
+        $(this).show();
+      });
+    }
+    $('#author-filter').val('');
+  });
 };
 
 articleView.handleMainNav = function () {
@@ -69,3 +99,7 @@ articleView.setTeasers = function() {
 
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
+
+articleView.handleAuthorFilter();
+
+articleView.handleCategoryFilter();
