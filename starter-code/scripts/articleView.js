@@ -95,6 +95,7 @@ articleView.setTeasers = function() {
   1. Prevent the default action of a link.
   2. Reveal everything in that particular article now.
   3. Hide that read-on link! */
+  //When an an author is selected and their article appears, you can open it to read more. That's as far as we got.
   $('article').on('click', '.read-on', function(e){
     e.preventDefault();
     $('.article-body *:nth-of-type(n+2)').show();
