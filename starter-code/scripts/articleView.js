@@ -72,9 +72,16 @@ articleView.handleMainNav = function () {
   2. Fade in the single .tab-content section that is associated withthe clicked
   .tab element's data-content attribute. */
 
-  $('.main-nav').on(/* CODE GOES HERE */);
+  $('.main-nav .tab').on('click', function() {
+    $('.tab-content').hide();
+    if ($(this).attr('data-content') === 'articles') {
+      $('#articles').fadeIn();
+    } else if ($(this).attr('data-content') === 'about') {
+      $('#about').fadeIn();
+    }
+  });
 
-  $('.main-nav .tab:first').click();
+  // $('.main-nav .tab:first').click();
 };
 
 articleView.setTeasers = function() {
@@ -94,3 +101,4 @@ articleView.setTeasers = function() {
 articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
+articleView.handleMainNav();
