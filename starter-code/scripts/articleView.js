@@ -18,7 +18,8 @@ articleView.populateFilters = function() {
 
 articleView.handleAuthorFilter = function() {
   $('#author-filter').on('change', function() {
-    if ($(this).val()) {
+    var authorName = $(this).val();
+    if (authorName) {
       /* TODO: If the select box changes to an option that has a value,
       we should:
       1. Hide all the articles,
@@ -26,10 +27,15 @@ articleView.handleAuthorFilter = function() {
         that was selected. Use an "attribute selector" to find
         those articles that match the value, and fade them in
         for the reader. */
+      var $articles = $('#articles article');
+      //debugger;
+      $articles.hide();
+      $('article[data-author="' + authorName + '"]').fadeIn();
     } else {
       /* TODO: Otherwise, we should:
       1. Show all the articles.
       2. Except the one article we are using as a template. */
+      $('#articles article').not('.template').fadeIn();
     }
     $('#category-filter').val('');
   });
@@ -39,6 +45,17 @@ articleView.handleCategoryFilter = function() {
   /* TODO: Just like we do for #author-filter above, we should also handle
   change events on the #category-filter element. Be sure to reset the
   #author-filter while you're at it! */
+  $('#category-filter').on('change', function() {
+    var categoryName = $(this).val();
+    if(categoryName){
+      var $articles = $('#articles article');
+      $articles.hide();
+      $('article[data-category="' + categoryName + '"]').fadeIn();
+    } else {
+      $('#articles article').not('.template').fadeIn();
+    };
+    $('#author-filter').val('');
+  });
 };
 
 articleView.handleMainNav = function () {
@@ -49,7 +66,16 @@ articleView.handleMainNav = function () {
   2. Fade in the single .tab-content section that is associated withthe clicked
   .tab element's data-content attribute. */
 
-  $('.main-nav').on(/* CODE GOES HERE */);
+  $('.main-nav').on('click', 'li.tab', function(){
+    var tabClickContent = $(this).data('content');
+    if (tabClickContent === 'articles') {
+      $('#about').hide();
+      $('#articles').fadeIn();
+    } else if (tabClickContent === 'about') {
+      $('#articles').hide();
+      $('#about').fadeIn();
+    }
+  });
 
   $('.main-nav .tab:first').click();
 };
@@ -65,7 +91,22 @@ articleView.setTeasers = function() {
   2. Reveal everything in that particular article now.
   3. Hide that read-on link! */
   // STRETCH GOAL!:  change the 'Read On' link to display 'Show Less'
+  $('.read-on').on('click', function(event) {
+    event.preventDefault();
+    var $this = $(this);
+    var stringArray = $this.html().split(' ');
+    $this.prev().children().toggle();
+    if (stringArray[1] === 'on') {
+      $this.html('Read less &larr;');
+    } else {
+      $this.html('Read on &rarr;');
+    }
+  });
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
+articleView.handleAuthorFilter();
+articleView.handleCategoryFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
