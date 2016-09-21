@@ -90,7 +90,8 @@ articleView.setTeasers = function() {
   $('.read-on').on('click', function(e) {
     e.preventDefault();
     $(this).parent().find('.article-body *:nth-of-type(n+3)').show();
-    $(this).hide();
+    //$(this).hide();
+    $(this).html('Show Less');
   });
 };
 
