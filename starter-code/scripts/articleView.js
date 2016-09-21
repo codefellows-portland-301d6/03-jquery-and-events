@@ -86,7 +86,6 @@ articleView.setTeasers = function() {
   $('a.read-on').on('click', function(e) {
     e.preventDefault();
     var $currentArticle = $(this).prev();
-    console.log($(this).prev(), $currentArticle);
     $currentArticle.find('p').show();
     $(this).text('Show less');
   });
