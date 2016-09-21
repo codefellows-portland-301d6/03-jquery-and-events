@@ -26,10 +26,14 @@ articleView.handleAuthorFilter = function() {
         that was selected. Use an "attribute selector" to find
         those articles that match the value, and fade them in
         for the reader. */
+      var auth = $(this).val();
+      $('article').hide();
+      $('article').filter('[data-author="'+auth+'"]').fadeIn('slow');
     } else {
       /* TODO: Otherwise, we should:
       1. Show all the articles.
       2. Except the one article we are using as a template. */
+      $('article').not('.template').show();
     }
     $('#category-filter').val('');
   });
@@ -69,3 +73,4 @@ articleView.setTeasers = function() {
 
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
+articleView.handleAuthorFilter();
