@@ -27,11 +27,19 @@ articleView.handleAuthorFilter = function() {
         those articles that match the value, and fade them in
         for the reader. */
       $('article').hide();
-      $(newArticle).find('#author-filter').fadein();
+      var $same = $(this).val();
+      $('article').each(function() {
+        if ($same === $(this).find('address a').text()) {
+          $(this).fadeIn();
+        }
+      });
+
     } else {
       /* TODO: Otherwise, we should:
       1. Show all the articles.
       2. Except the one article we are using as a template. */
+      $('article').not('.template').show();
+
     }
     $('#category-filter').val('');
   });
@@ -44,12 +52,16 @@ articleView.handleCategoryFilter = function() {
   $('#category-filter').on('change', function(){
     if ($(this).val()){
       $('article').hide();
-      $(newArticle).find('#author-filter').fadein();
+      var $same = $(this).val();
+      $('article').each(function() {
+        if ($same === $(this).attr('data-category')) {
+          $(this).fadeIn();
+        }
+      });
+    } else {
+      $('article').not('.template').show();
     }
-    else{
-
-    }
-    $('#author-filter').val('')
+    $('#author-filter').val('');
   });
 };
 
@@ -61,7 +73,12 @@ articleView.handleMainNav = function () {
   2. Fade in the single .tab-content section that is associated withthe clicked
   .tab element's data-content attribute. */
 
-  $('.main-nav').on(/* CODE GOES HERE */);
+  $('.main-nav').on('click', '.tab', function(event) {
+    event.preventDefault();
+    $('.tab-content').hide();
+    var $selectedItem = $(this).data('content');
+    $('#' + $selectedItem).fadeIn();
+  });
 
   $('.main-nav .tab:first').click();
 };
@@ -77,9 +94,16 @@ articleView.setTeasers = function() {
   2. Reveal everything in that particular article now.
   3. Hide that read-on link! */
   // STRETCH GOAL!:  change the 'Read On' link to display 'Show Less'
+
+  $('.read-on').on('click', function(event) {
+    event.preventDefault();
+    $(this).parent().find('.article-body *:nth-of-type(n+2)').fadeIn();
+  });
 };
 
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
