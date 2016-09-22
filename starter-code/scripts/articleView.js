@@ -79,16 +79,28 @@ articleView.handleMainNav = function () {
   1. Hide all the .tab-content sections.
   2. Fade in the single .tab-content section that is associated withthe clicked
   .tab element's data-content attribute. */
+  $('.main-nav .tab:last').on('click', function(){
+    $('#articles').fadeOut();
+    $('#about').fadeIn();
+  });
+  $('.main-nav .tab:first').on('click', function(){
+    $('#about').fadeOut();
+    $('#articles').fadeIn();
 
-  $('.main-nav').on(/* CODE GOES HERE */);
+  });
 
   $('.main-nav .tab:first').click();
+
 };
 
+
 articleView.setTeasers = function() {
-  /* Hide any elements after the first 2 (<p> Tags in case)
+  /* TODO Hide any elements after the first 2 (<p> Tags in case)
   in any article body: */
   $('.article-body *:nth-of-type(n+2)').hide();
+
+
+
 
   /* TODO: Add a delegated event handler to reveal the remaining
   paragraph.  When a .read-on link is clicked, we can:
@@ -102,3 +114,5 @@ articleView.setTeasers = function() {
 articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
+articleView.handleMainNav();
+articleView.setTeasers();
