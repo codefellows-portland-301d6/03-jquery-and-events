@@ -95,11 +95,12 @@ articleView.setTeasers = function() {
     event.preventDefault();
     var $this = $(this);
     var stringArray = $this.html().split(' ');
-    $this.prev().children().toggle();
     if (stringArray[1] === 'on') {
       $this.html('Read less &larr;');
+      $this.prev().children().show();
     } else {
       $this.html('Read on &rarr;');
+      $this.prev().children(':gt(0)').hide();
     }
   });
 };
